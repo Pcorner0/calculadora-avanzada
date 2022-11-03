@@ -11,7 +11,6 @@ type Handler interface {
 	MultiplyNumbers(ctx *gin.Context)
 	RootNumbers(ctx *gin.Context)
 	PowerNumbers(ctx *gin.Context)
-	SinNumbers(ctx *gin.Context)
 }
 
 type handler struct {
@@ -70,7 +69,7 @@ func (h handler) MultiplyNumbers(ctx *gin.Context) {
 }
 
 func (h handler) RootNumbers(ctx *gin.Context) {
-	var req RootRequest
+	var req rootRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
@@ -85,27 +84,12 @@ func (h handler) RootNumbers(ctx *gin.Context) {
 }
 
 func (h handler) PowerNumbers(ctx *gin.Context) {
-	var req PowerRequest
+	var req powerRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
 
 	total, err := h.Service.PowerNumbers(req)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
-		return
-	}
-
-	ctx.JSON(http.StatusOK, total)
-}
-
-func (h handler) SinNumbers(ctx *gin.Context) {
-	var req SinRequest
-	if err := ctx.ShouldBindJSON(&req); err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
-	}
-
-	total, err := h.Service.SinNumbers(req)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
