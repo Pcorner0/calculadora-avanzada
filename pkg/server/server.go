@@ -15,13 +15,16 @@ func Setup(dbHandler *gorm.DB) {
 	router := gin.Default()
 
 	aritmeticHandler := bindAritmetica(dbHandler)
+	geometricHandler := bindGeometria(dbHandler)
 
 	router.POST("/sumsubtnumbers", aritmeticHandler.SumSubtNumbers)
 	router.POST("/divnumbers", aritmeticHandler.DivideTwoNumbers)
 	router.POST("/mulnumbers", aritmeticHandler.MultiplyNumbers)
 	router.POST("/root", aritmeticHandler.RootNumbers)
 	router.POST("/power", aritmeticHandler.PowerNumbers)
-	router.POST("/sin",aritmeticHandler.SinNumbers)
-
+	router.POST("/sin",geometricHandler.SinNumbers)
+	router.POST("/cos",geometricHandler.CosNumbers)
+	
 	router.Run(viper.GetString("server.port"))
 }
+
