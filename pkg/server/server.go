@@ -24,6 +24,7 @@ func Setup(dbHandler *gorm.DB) {
 	router.POST("/power", aritmeticHandler.PowerNumbers)
 	router.POST("/sin",geometricHandler.SinNumbers)
 	router.POST("/cos",geometricHandler.CosNumbers)
+	router.POST("/tan",geometricHandler.TanNumbers)
 	
 	router.Run(viper.GetString("server.port"))
 }
